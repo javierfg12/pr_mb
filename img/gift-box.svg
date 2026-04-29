@@ -1,0 +1,23 @@
+<svg viewBox="0 0 340 380" xmlns="http://www.w3.org/2000/svg">
+  <!-- Caja -->
+  <rect x="60"  y="80"  width="220" height="240" rx="2" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+  <rect x="60"  y="80"  width="220" height="32"  rx="0" fill="#222"   stroke="#333" stroke-width="1"/>
+
+  <!-- Lazos verticales y horizontales -->
+  <line x1="170" y1="80"  x2="170" y2="320" stroke="#B8A898" stroke-width="1.5" opacity="0.6"/>
+  <line x1="60"  y1="96"  x2="280" y2="96"  stroke="#B8A898" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Lazo izquierdo -->
+  <path d="M170,80 C155,60 135,55 140,72 C145,82 165,80 170,80Z" fill="#B8A898" opacity="0.55"/>
+  <!-- Lazo derecho -->
+  <path d="M170,80 C185,60 205,55 200,72 C195,82 175,80 170,80Z" fill="#B8A898" opacity="0.55"/>
+
+  <!-- Nombre grabado -->
+  <text x="170" y="215" text-anchor="middle"
+    font-family="Georgia,serif" font-size="42" font-style="italic"
+    fill="#C8C8C8" opacity="0.5">Ana</text>
+
+  <!-- Collar dentro de la caja -->
+  <ellipse cx="170" cy="190" rx="65" ry="10"
+    fill="none" stroke="#888" stroke-width="1" opacity="0.3" stroke-dasharray="3,4"/>
+</svg>
