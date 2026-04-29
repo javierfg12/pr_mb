@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo – MásBarata</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .catalog-layout { display: grid; grid-template-columns: 220px 1fr; gap: 3rem; padding: 3rem 5rem 5rem; }
+    .filter-panel { position: sticky; top: 90px; height: fit-content; }
+    .filter-title { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--plata-dark); margin-bottom: 1rem; }
+    .filter-group { margin-bottom: 2rem; }
+    .filter-group-title { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--negro); margin-bottom: 0.8rem; font-weight: 500; border-bottom: 0.5px solid #ddd; padding-bottom: 0.5rem; }
+    .filter-btn { display: block; width: 100%; text-align: left; background: none; border: none; padding: 0.45rem 0; font-family: var(--font-body); font-size: 0.83rem; color: #666; cursor: pointer; transition: color 0.2s; }
+    .filter-btn:hover, .filter-btn.active { color: var(--negro); font-weight: 500; }
+    .filter-btn.active::before { content: '→ '; }
+    .catalog-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
+    .catalog-title { font-family: var(--font-display); font-size: 2.2rem; font-weight: 300; }
+    .catalog-title em { font-style: italic; color: var(--plata-dark); }
+    .catalog-count { font-size: 0.75rem; color: #888; letter-spacing: 0.08em; }
+    .sort-select { font-family: var(--font-body); font-size: 0.75rem; border: 0.5px solid #ccc; padding: 0.4rem 0.8rem; background: transparent; cursor: pointer; color: var(--negro); }
+    .catalog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
+    .page-breadcrumb { padding: 1.2rem 5rem 0; font-size: 0.72rem; color: #888; letter-spacing: 0.08em; }
+    .page-breadcrumb a { color: #888; text-decoration: none; }
+    .page-breadcrumb a:hover { color: var(--negro); }
+    .outlet-banner { background: var(--negro); color: var(--crema); text-align: center; padding: 0.8rem; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; }
+    .outlet-banner em { color: var(--acento); font-style: normal; }
+    @media(max-width:900px){ .catalog-layout{grid-template-columns:1fr;padding:2rem 1.5rem;} .catalog-grid{grid-template-columns:repeat(2,1fr);} }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">más<span>barata</span></a>
+    <ul class="nav-links">
+      <li><a href="catalogo.html?cat=collares">Collares</a></li>
+      <li><a href="catalogo.html?cat=pulseras">Pulseras</a></li>
+      <li><a href="catalogo.html?cat=pendientes">Pendientes</a></li>
+      <li><a href="personalizados.html">Personalizados</a></li>
+      <li><a href="catalogo.html?cat=colgantes">Colgantes</a></li>
+      <li><a href="catalogo.html?outlet=1">Outlet</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="tel:636276934">636 276 934</a>
+      <a href="carrito.html" class="btn-cart cart-count">Carrito (0)</a>
+    </div>
+  </nav>
+
+  <div class="outlet-banner" id="outletBanner" style="display:none">
+    ✦ <em>Outlet</em> — Hasta un 50% de descuento en piezas seleccionadas ✦
+  </div>
+
+  <div class="page-breadcrumb">
+    <a href="index.html">Inicio</a> / <span id="breadcrumbCat">Todos los productos</span>
+  </div>
+
+  <div class="catalog-layout">
+    <!-- FILTROS -->
+    <aside class="filter-panel">
+      <p class="filter-title">Filtrar por</p>
+
+      <div class="filter-group">
+        <p class="filter-group-title">Categoría</p>
+        <button class="filter-btn" data-filter="cat" data-val="">Todos</button>
+        <button class="filter-btn" data-filter="cat" data-val="collares">Collares</button>
+        <button class="filter-btn" data-filter="cat" data-val="pulseras">Pulseras</button>
+        <button class="filter-btn" data-filter="cat" data-val="pendientes">Pendientes</button>
+        <button class="filter-btn" data-filter="cat" data-val="colgantes">Colgantes</button>
+        <button class="filter-btn" data-filter="cat" data-val="personalizados">Personalizados</button>
+      </div>
+
+      <div class="filter-group">
+        <p class="filter-group-title">Precio</p>
+        <button class="filter-btn" data-filter="price" data-val="">Todos</button>
+        <button class="filter-btn" data-filter="price" data-val="0-10">Menos de 10 €</button>
+        <button class="filter-btn" data-filter="price" data-val="10-20">10 € – 20 €</button>
+        <button class="filter-btn" data-filter="price" data-val="20-99">Más de 20 €</button>
+      </div>
+
+      <div class="filter-group">
+        <p class="filter-group-title">Descuentos</p>
+        <button class="filter-btn" data-filter="sale" data-val="">Todos</button>
+        <button class="filter-btn" data-filter="sale" data-val="1">Solo con oferta</button>
+      </div>
+    </aside>
+
+    <!-- PRODUCTOS -->
+    <div>
+      <div class="catalog-header">
+        <div>
+          <h1 class="catalog-title" id="catTitle">Toda la <em>colección</em></h1>
+          <p class="catalog-count" id="catCount">0 productos</p>
+        </div>
+        <select class="sort-select" id="sortSelect">
+          <option value="default">Más vendidos</option>
+          <option value="price-asc">Precio: menor a mayor</option>
+          <option value="price-desc">Precio: mayor a menor</option>
+          <option value="rating">Mejor valorados</option>
+        </select>
+      </div>
+      <div class="catalog-grid" id="catalogGrid"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER mínimo -->
+  <footer class="footer" style="margin-top:4rem">
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 MásBarata · Villaviciosa de Odón, Madrid</p>
+      <p class="footer-phone">636 276 934 · info@masbarata.es</p>
+    </div>
+  </footer>
+
+  <script src="store.js"></script>
+  <script>
+    let activeFilters = { cat: '', price: '', sale: '' };
+    let activeSort = 'default';
+
+    function getFiltered() {
+      let items = [...CATALOG];
+      const outlet = getParam('outlet');
+      if (outlet) items = items.filter(p => p.oldPrice);
+      if (activeFilters.cat) items = items.filter(p => p.cat === activeFilters.cat);
+      if (activeFilters.sale) items = items.filter(p => p.oldPrice);
+      if (activeFilters.price) {
+        const [min, max] = activeFilters.price.split('-').map(Number);
+        items = items.filter(p => p.price >= min && p.price <= max);
+      }
+      if (activeSort === 'price-asc') items.sort((a,b) => a.price - b.price);
+      else if (activeSort === 'price-desc') items.sort((a,b) => b.price - a.price);
+      else if (activeSort === 'rating') items.sort((a,b) => b.rating - a.rating);
+      else items.sort((a,b) => b.reviews - a.reviews);
+      return items;
+    }
+
+    function renderStars(r) {
+      return '★'.repeat(Math.round(r)) + '☆'.repeat(5-Math.round(r));
+    }
+
+    function render() {
+      const items = getFiltered();
+      const grid = document.getElementById('catalogGrid');
+      document.getElementById('catCount').textContent = `${items.length} producto${items.length!==1?'s':''}`;
+      grid.innerHTML = items.map(p => `
+        <a href="producto.html?id=${p.id}" class="prod-card" style="text-decoration:none">
+          <div class="prod-img" style="background:#1e1e1e">
+            ${p.svg}
+            ${p.badge ? `<span class="badge-sale">${p.badge}</span>` : ''}
+          </div>
+          <p class="prod-name" style="color:var(--negro);margin-top:.6rem">${p.name}</p>
+          <div style="display:flex;align-items:center;gap:.5rem;margin:.2rem 0">
+            <span style="font-size:.72rem;color:#c8a84b;letter-spacing:.05em">${renderStars(p.rating)}</span>
+            <span style="font-size:.68rem;color:#999">(${p.reviews})</span>
+          </div>
+          <div class="prod-prices">
+            <span class="prod-price" style="color:var(--negro)">${fmt(p.price)}</span>
+            ${p.oldPrice ? `<span class="prod-price-old" style="color:#aaa">${fmt(p.oldPrice)}</span>` : ''}
+          </div>
+        </a>`).join('');
+    }
+
+    function initPage() {
+      const cat = getParam('cat') || '';
+      const outlet = getParam('outlet');
+
+      if (outlet) {
+        document.getElementById('outletBanner').style.display = 'block';
+        document.getElementById('catTitle').innerHTML = 'Productos en <em>Outlet</em>';
+        document.getElementById('breadcrumbCat').textContent = 'Outlet';
+      } else if (cat) {
+        activeFilters.cat = cat;
+        const labels = { collares:'Collares', pulseras:'Pulseras', pendientes:'Pendientes', colgantes:'Colgantes', personalizados:'Personalizados' };
+        document.getElementById('catTitle').innerHTML = `${labels[cat] || cat} de <em>plata</em>`;
+        document.getElementById('breadcrumbCat').textContent = labels[cat] || cat;
+        document.querySelector(`[data-val="${cat}"]`)?.classList.add('active');
+      } else {
+        document.querySelector('[data-val=""]').classList.add('active');
+      }
+
+      render();
+
+      // Filtros
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const f = btn.dataset.filter;
+          document.querySelectorAll(`[data-filter="${f}"]`).forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeFilters[f] = btn.dataset.val;
+          render();
+        });
+      });
+
+      document.getElementById('sortSelect').addEventListener('change', e => {
+        activeSort = e.target.value;
+        render();
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', initPage);
+  </script>
+</body>
+</html>
